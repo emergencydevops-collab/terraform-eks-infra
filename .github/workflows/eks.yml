@@ -1,0 +1,34 @@
+name: 'Terraform Apply'
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Checkout Code'
+        uses: actions/checkout@v2
+
+      - name: 'Set up Terraform'
+        uses: hashicorp/setup-terraform@v1
+
+      - name: 'Terraform Init'
+        run: terraform init
+
+      - name: 'Terraform Plan'
+        run: terraform plan
+
+      - name: 'Terraform Apply'
+        run: terraform apply -auto-approve
+
+      - name: 'Store Terraform Outputs'
+        id: output
+        run: echo "cluster_endpoint=$(terraform output -raw cluster_endpoint)" >> $GITHUB_ENV
+
+      - name: 'Print Cluster Endpoint'
+        run: echo "Cluster Endpoint: ${{ env.cluster_endpoint }}"
