@@ -31,5 +31,3 @@ jobs:
         run: |
           echo "cluster_endpoint=$(terraform output -raw cluster_endpoint)" >> $GITHUB_ENV
 
-      - name: 'Print Cluster Endpoint'
-        run: echo "Cluster Endpoint: ${{ env.cluster_endpoint }}"
