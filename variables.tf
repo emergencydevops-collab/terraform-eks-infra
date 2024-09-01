@@ -1,65 +1,67 @@
-variable "region" {
-  description = "The AWS region to deploy the EKS cluster"
-  type        = string
-  default     = "ap-south-1"
-}
-
 variable "cluster_name" {
-  description = "Name of the EKS cluster"
-  type        = string
-  default     = "eksdemo"
+  default = "eksdemo"
 }
 
-variable "kubernetes_version" {
-  description = "Kubernetes version"
+variable "region" {
+  default = "ap-south-1"
+}
+
+variable "vpc_id" {
   type        = string
-  default     = "1.30"
+  description = "VPC ID for EKS cluster"
+}
+
+variable "subnet_ids" {
+  type        = list(string)
+  description = "List of subnet IDs"
 }
 
 variable "node_group_name" {
-  description = "Name of the node group"
-  type        = string
-  default     = "eksdemo1-ng-public1"
-}
-
-variable "instance_type" {
-  description = "EC2 instance type for the node group"
-  type        = string
-  default     = "t3.medium"
+  default = "eksdemo1-ng-public1"
 }
 
 variable "desired_capacity" {
-  description = "Desired number of worker nodes"
-  type        = number
-  default     = 2
+  default = 2
 }
 
-variable "min_size" {
-  description = "Minimum number of worker nodes"
-  type        = number
-  default     = 2
+variable "max_capacity" {
+  default = 4
 }
 
-variable "max_size" {
-  description = "Maximum number of worker nodes"
-  type        = number
-  default     = 4
+variable "min_capacity" {
+  default = 2
 }
 
-variable "ssh_key_name" {
-  description = "SSH key pair name"
+variable "instance_type" {
+  default = "t3.medium"
+}
+
+variable "key_name" {
+  default = "terraform_key"
+}
+
+variable "tags" {
+  type    = map(string)
+  default = {
+    "Environment" = "DevOps"
+    "ManagedBy"   = "Terraform"
+  }
+}
+
+variable "ssh_key" {
   type        = string
-  default     = "DevOpsChappie"
+  description = "SSH public key"
+  sensitive   = true
 }
 
 variable "access_key" {
-  description = "AWS Access Key"
   type        = string
+  description = "AWS access key"
   sensitive   = true
 }
 
 variable "secret_key" {
-  description = "AWS Secret Key"
   type        = string
+  description = "AWS secret key"
   sensitive   = true
 }
