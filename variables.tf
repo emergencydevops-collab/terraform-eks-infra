@@ -1,62 +1,65 @@
-variable "aws_region" {
+variable "region" {
   description = "The AWS region to deploy the EKS cluster"
   type        = string
   default     = "ap-south-1"
 }
 
 variable "cluster_name" {
-  description = "The name of the EKS cluster"
+  description = "Name of the EKS cluster"
   type        = string
   default     = "eksdemo"
 }
 
 variable "kubernetes_version" {
-  description = "The Kubernetes version to use for the EKS cluster"
+  description = "Kubernetes version"
   type        = string
   default     = "1.30"
 }
 
-variable "subnet_ids" {
-  description = "List of subnet IDs where the EKS cluster will be deployed"
-  type        = list(string)
-}
-
-variable "vpc_id" {
-  description = "The VPC ID where the EKS cluster will be deployed"
+variable "node_group_name" {
+  description = "Name of the node group"
   type        = string
+  default     = "eksdemo1-ng-public1"
 }
 
 variable "instance_type" {
-  description = "The instance type for the node group"
+  description = "EC2 instance type for the node group"
   type        = string
   default     = "t3.medium"
 }
 
-variable "node_desired_capacity" {
-  description = "The desired number of worker nodes"
+variable "desired_capacity" {
+  description = "Desired number of worker nodes"
   type        = number
   default     = 2
 }
 
-variable "node_min_capacity" {
-  description = "The minimum number of worker nodes"
+variable "min_size" {
+  description = "Minimum number of worker nodes"
   type        = number
   default     = 2
 }
 
-variable "node_max_capacity" {
-  description = "The maximum number of worker nodes"
+variable "max_size" {
+  description = "Maximum number of worker nodes"
   type        = number
   default     = 4
 }
 
 variable "ssh_key_name" {
-  description = "The name of the SSH key pair to use for access to the nodes"
+  description = "SSH key pair name"
   type        = string
+  default     = "DevOpsChappie"
 }
 
-variable "additional_security_group_ids" {
-  description = "Additional security group IDs to attach to the nodes"
-  type        = list(string)
-  default     = []
+variable "access_key" {
+  description = "AWS Access Key"
+  type        = string
+  sensitive   = true
+}
+
+variable "secret_key" {
+  description = "AWS Secret Key"
+  type        = string
+  sensitive   = true
 }
